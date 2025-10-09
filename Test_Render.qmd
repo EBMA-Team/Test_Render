@@ -1,0 +1,149 @@
+---
+title: "Test_render"
+author: "Corey Scholes"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+
+# Load Packages
+
+```{r}
+#| label: Load packages
+
+ if(!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  "tibble",
+  "gargle",
+  "googledrive",
+  "googlesheets4",
+  "tidyverse",
+  install = TRUE,
+  update = FALSE
+)
+
+```
+
+## Authorisations
+
+Pre-authorise access to registry datasets.
+
+```{r}
+#| label: Authorisations
+#| echo: false
+
+options(
+  gargle_oauth_cache = ".secrets",
+  gargle_oauth_email = TRUE
+)
+
+drive_auth(cache = ".secrets", email = TRUE)
+
+```
+
+
+# Create Test Data
+
+Function first
+
+```{r}
+
+create_test <- function(n_rows = 50, seed = NULL) {
+  if (!is.null(seed)) {
+    set.seed(seed)
+  }
+  
+  tibble(
+    id = 1:n_rows,
+    name = sample(c("Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "Henry"), n_rows, replace = TRUE),
+    age = sample(18:65, n_rows, replace = TRUE),
+    score = round(runif(n_rows, min = 0, max = 100), 1),
+    category = sample(c("A", "B", "C", "D"), n_rows, replace = TRUE) |> factor(),
+    date = seq(as.Date("2024-01-01"), by = "day", length.out = n_rows),
+    is_active = sample(c(TRUE, FALSE), n_rows, replace = TRUE),
+    salary = round(rnorm(n_rows, mean = 60000, sd = 15000), 2),
+    department = sample(c("Sales", "Marketing", "IT", "HR", "Finance"), n_rows, replace = TRUE),
+    rating = sample(1:5, n_rows, replace = TRUE) |> ordered()
+  )
+}
+
+```
+
+Function call
+
+```{r}
+
+
+TestDF <- create_test(seed = 2068)
+
+```
+
+# Write externally
+
+<!--# Write reoperations to external sheet -->
+
+Write reoperations to external table
+
+
+```{r}
+#| label: echo: false
+
+SheetID <- "https://docs.google.com/spreadsheets/d/1e7431oSrK9tItiSZb4wCWPI7nqGqawH8pNgnqgHPNkU/edit"
+
+```
+
+
+```{r}
+#| label:  Reoperations-Report-Rep1B-Proc1
+#| eval: false
+#| include: false
+
+# Authenticate for sheets using the same token
+gs4_auth(token = drive_token())
+
+# Do the write operation silently
+if (nrow(TestDF) > 0) {
+  invisible(
+    googlesheets4::range_write(
+ ss = SheetID,
+ data = TestDF,
+ sheet = "TestTab",
+ range = "A1:J",
+ col_names = TRUE
+    )
+  )
+}
+
+
+```
+
+
+```{r}
+#| label:  Report-display
+
+{ifelse(nrow(TestDF) == 0,
+        "There are no reoperations to report.",
+        "Reoperations were written to an external file for further review"  # Empty string when data exists
+)}
+```
