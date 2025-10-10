@@ -137,7 +137,7 @@ if (nrow(TestDF) > 0) {
 if (nrow(TestDF) == 0) {
   epoxy::epoxy_html("There are no reoperations to report.")
 } else {
-  epoxy::epoxy_html('Reoperations were written to an <a href="https://docs.google.com/spreadsheets/d/1e7431oSrK9tItiSZb4wCWPI7nqGqawH8pNgnqgHPNkU/edit">external file</a> for further review')
+  epoxy::epoxy_html('Reoperations were written to an <a href="{SheetID}">external file</a> for further review')
 }
 
 
