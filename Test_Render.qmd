@@ -107,9 +107,9 @@ SheetID <- "https://docs.google.com/spreadsheets/d/1e7431oSrK9tItiSZb4wCWPI7nqGq
 ```
 
 ```{r}
-#| label:  Reoperations-Report-Rep1B-Proc1
-#| eval: false
-#| include: false
+#| label:  Report-Write
+#| eval: true
+#| include: true
 
 # Authenticate for sheets using the same token
 gs4_auth(token = drive_token())
