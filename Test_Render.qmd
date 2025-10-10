@@ -134,8 +134,8 @@ if (nrow(TestDF) > 0) {
 #| label:  Report-display
 
 {ifelse(nrow(TestDF) == 0,
-        "There are no reoperations to report.",
-        "Reoperations were written to an external file for further review"  # Empty string when data exists
+        epoxy::epoxy_html("There are no reoperations to report.",)
+        epoxy::epoxy_html("Reoperations were written to an external file for further review")
 )}
 
 
