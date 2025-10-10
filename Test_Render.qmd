@@ -26,6 +26,7 @@ format:
 
  if(!require("pacman")) install.packages("pacman")
 pacman::p_load(
+  "glue",
   "epoxy",
   "renv",
   "knitr",
@@ -137,7 +138,7 @@ if (nrow(TestDF) > 0) {
 if (nrow(TestDF) == 0) {
   epoxy::epoxy_html("There are no reoperations to report.")
 } else {
-  epoxy::epoxy_html('Reoperations were written to an <a href="{SheetID}">external file</a> for further review')
+  glue::glue('Reoperations were written to an <a href="{SheetID}">external file</a> for further review')
 }
 
 
