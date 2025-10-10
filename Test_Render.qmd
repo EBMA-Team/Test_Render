@@ -1,31 +1,23 @@
 ---
-title: "Test_render"
+title: "Test Render"
 author: "Corey Scholes"
-format: html
-editor: visual
+affiliation: "EBM Analytics"
+version: 1.0
+date: "2025-Sep-08"
+date-modified: "2025-Oct-10"
+type: website
+execute: 
+  echo: true
+  warning: false
+  message: false
+format:
+  html:
+    theme: cosmo
+    embed-resources: true
+    toc: true
+    number-sections: true
+    code-fold: true
 ---
-
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
-
 
 # Load Packages
 
@@ -34,6 +26,10 @@ The `echo: false` option disables the printing of code (only output is displayed
 
  if(!require("pacman")) install.packages("pacman")
 pacman::p_load(
+  "renv",
+  "knitr",
+  "rsconnect",
+  "quarto",
   "tibble",
   "gargle",
   "googledrive",
@@ -51,7 +47,7 @@ Pre-authorise access to registry datasets.
 
 ```{r}
 #| label: Authorisations
-#| echo: false
+#| echo: true
 
 options(
   gargle_oauth_cache = ".secrets",
@@ -61,7 +57,6 @@ options(
 drive_auth(cache = ".secrets", email = TRUE)
 
 ```
-
 
 # Create Test Data
 
@@ -105,14 +100,11 @@ TestDF <- create_test(seed = 2068)
 
 Write reoperations to external table
 
-
 ```{r}
-#| label: echo: false
 
 SheetID <- "https://docs.google.com/spreadsheets/d/1e7431oSrK9tItiSZb4wCWPI7nqGqawH8pNgnqgHPNkU/edit"
 
 ```
-
 
 ```{r}
 #| label:  Reoperations-Report-Rep1B-Proc1
@@ -138,7 +130,6 @@ if (nrow(TestDF) > 0) {
 
 ```
 
-
 ```{r}
 #| label:  Report-display
 
@@ -146,4 +137,6 @@ if (nrow(TestDF) > 0) {
         "There are no reoperations to report.",
         "Reoperations were written to an external file for further review"  # Empty string when data exists
 )}
+
+
 ```
