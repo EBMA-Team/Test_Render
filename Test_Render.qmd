@@ -217,7 +217,7 @@ TableRep1RC1 <- TestDF |>
     #     all_categorical() ~ "{p} ({n})"
     #     ),
     #   missing = "no"
-    ) |> add_stat_label(
+    ) |> gtsummary::add_stat_label(
     location = "column"
   # ) |> add_overall() |> modify_table_styling(
   #     columns = label,
