@@ -241,8 +241,8 @@ gtsummary::as_flex_table(TableRep1RC1) |> flextable::set_table_properties(
     split = TRUE,
     repeat_headers = TRUE
     )
-) |> flextable::fontsize(size = 11, part = "header") |>
-  flextable::fontsize(size = 10, part = "body") |>
+) |> flextable::fontsize(size = 12, part = "header") |>
+  flextable::fontsize(size = 11, part = "body") |>
   flextable::fit_to_width(max_width = 7)
 
 ```
