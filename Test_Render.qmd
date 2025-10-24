@@ -17,6 +17,23 @@ format:
     toc: true
     number-sections: true
     code-fold: true
+  docx:
+    toc: true
+    fig-align: center
+    fig_caption: yes
+    df-print: kable
+  pdf:
+    toc: true
+    colorlinks: true
+    fig_caption: yes
+    keep-tex: false
+    include-in-header:
+      text: |
+        \usepackage{bookmark}
+    geometry:
+    - margin = 15mm
+    df-print: kable
+    fig-pos: 'H'
 ---
 
 # Load Packages
@@ -140,5 +157,88 @@ if (nrow(TestDF) == 0) {
   epoxy::epoxy_html('Reoperations were written to an <a href="{{SheetID}}">external file</a> for further review')
 }
 
+
+```
+
+
+
+# Table layout
+
+Test table layout across docx and pdf formats
+
+```{r}
+#| label: tbl-rep1RC1pat
+#| tbl-cap: "Summary of PRULO Report 1 (Rotator Cuff) Case - Patient Characteristics"
+
+#Dont insert chunk names into table chunks - quarto bug makes it wig out when there is a named chunk for some reason
+
+TableRep1RC1 <- TestDF |>
+  dplyr::select(
+    id,
+    name,
+    age,
+    score,
+    category,
+    date,
+    is_active,
+    salary,
+    department,
+    rating
+    ) |>
+    tbl_summary(
+      by = "department"
+    #   label = list(
+    #     #SurgeonA ~ "Surgeon",
+    #     AgeAtInitialExam ~ "Age at Initial Consultation (Years)",
+    #     Sex = "Male",
+    #     BilateralStatus ~ "Bilateral Presentation",
+    #     IndexSide ~ "Dominant Side",
+    #     SymptomDuration ~ "Symptom Duration (Weeks)",
+    #     SymptomDurationCat ~ "Symptom Duration Category",
+    #     TreatmentStatus ~ "Treatment Record Active",
+    #     RegistryStatus ~ "Patient Record Active"
+    #   ),
+    #   type = list(
+    #     AgeAtInitialExam ~ "continuous",
+    #     SymptomDuration ~ "continuous",
+    #     Sex ~ "dichotomous",
+    #     TreatmentStatus ~ "dichotomous",
+    #     RegistryStatus ~ "dichotomous"
+    #   ),
+    #   value = list(
+    #     Sex = "Male",
+    #     IndexSide = "Dominant",
+    #     TreatmentStatus = "Ongoing",
+    #     RegistryStatus = "Open"
+    #   ),
+    #   statistic = list(
+    #     all_categorical() ~ "{p} ({n})"
+    #     ),
+    #   missing = "no"
+    ) |> add_stat_label(
+    location = "column"
+  # ) |> add_overall() |> modify_table_styling(
+  #     columns = label,
+  #     rows = label == "Symptom Duration Category",
+  #     footnote = "Dichotomised below or equal to 0.5 years or greater than 0.5 years"
+  # ) |> modify_table_styling(
+  #     columns = label,
+  #     rows = label == "Treatment Record Active",
+  #     footnote = "Treatment record remains active - no change to follow up"
+  # ) |> modify_table_styling(
+  #     columns = label,
+  #     rows = label == "Patient Record Active",
+  #     footnote = "Patient record remains open - no change to consent or mortality status"
+  )
+
+gtsummary::as_flex_table(TableRep1RC1) |> flextable::set_table_properties(
+  layout = "autofit",
+  width = 0,
+  align = "center",
+  opts_word = list(
+    split = TRUE,
+    repeat_headers = TRUE
+    )
+)
 
 ```
