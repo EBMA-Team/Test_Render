@@ -235,12 +235,13 @@ TableRep1RC1 <- TestDF |>
 
 gtsummary::as_flex_table(TableRep1RC1) |> flextable::set_table_properties(
   layout = "autofit",
-  width = 0,
+  width = 1,
   align = "center",
   opts_word = list(
     split = TRUE,
     repeat_headers = TRUE
     )
-)
+) |> flextable::fontsize(size = 9, part = "all") |>
+  flextable::fit_to_width(max_width = 7)
 
 ```
