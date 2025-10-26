@@ -68,6 +68,7 @@ Pre-authorise access to registry datasets.
 ```{r}
 #| label: Authorisations
 #| echo: true
+#| execute: true
 
 options(
   gargle_oauth_cache = ".secrets",
@@ -241,8 +242,7 @@ gtsummary::as_flex_table(TableRep1RC1) |> flextable::set_table_properties(
     split = TRUE,
     repeat_headers = TRUE
     )
-) |> flextable::fontsize(size = 12, part = "header") |>
-  flextable::fontsize(size = 11, part = "body") |>
-  flextable::fit_to_width(max_width = 7)
+) |> flextable::fontsize(size = 13, part = "body") |>
+  flextable::fit_to_width(max_width = 8)
 
 ```
