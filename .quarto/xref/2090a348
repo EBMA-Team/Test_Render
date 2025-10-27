@@ -1,1 +1,1 @@
-{"headings":["load-packages","authorisations","create-test-data","write-externally","table-layout"],"entries":[{"caption":"Summary of PRULO Report 1 (Rotator Cuff) Case - Patient Characteristics","order":{"section":[4,0,0,0,0,0,0],"number":1},"key":"tbl-rep1RC1pat"}]}
+{"headings":["load-packages","authorisations","create-test-data","write-externally","table-layout","text-rendering"],"entries":[{"caption":"Summary of PRULO Report 1 (Rotator Cuff) Case - Patient Characteristics","order":{"number":1,"section":[4,0,0,0,0,0,0]},"key":"tbl-rep1RC1pat"}]}

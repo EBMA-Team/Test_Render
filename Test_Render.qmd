@@ -246,3 +246,24 @@ gtsummary::as_flex_table(TableRep1RC1) |> flextable::set_table_properties(
   flextable::fit_to_width(max_width = 8)
 
 ```
+
+
+# Text rendering
+
+```{r}
+#| label: product-tracking-display
+
+
+message_text <- if_else(
+  nrow(TestDF |> filter(is.na(department)) |> arrange(category)) < 1,
+  "There are no cases to flag for discrepancies.",
+  "Discrepancies identified have been added to external table."
+)
+
+if (knitr::is_html_output()) {
+  epoxy::epoxy_html(message_text)
+} else {
+  cat(message_text, "\n")
+}
+```
+
